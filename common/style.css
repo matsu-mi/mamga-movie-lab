@@ -43,13 +43,37 @@ img {
 	display: block;
 }
 
+a {
+	text-decoration: none; /* 下線を消す */
+	color: inherit;/* 青色を解除（文字色を親と同じにする） */
+	display: block;/* クリックできる範囲を広げるためによくやる設定 */
+}
+
 ul {
 	list-style: none;
 	padding: 0; /* これもセットで書くと、左側の謎の隙間が消えます */
 }
 
 p {
+	font-size: 18px;
+	line-height: 1.6;
+}
 
+.text-bold {
+	font-weight: bold;
+}
+
+.text-accent {
+	font-size: 2em;
+	line-height: 0.9;
+}
+
+.caption {
+    display: block;      /* 前後に改行を入れる */
+    font-size: 0.8rem;   /* 本文より小さく */
+    color: #666;         /* 少し薄めのグレー */
+    line-height: 1.5;    /* 行間を少し確保 */
+    margin-top: 0.5em;   /* 上に少し隙間を作る */
 }
 
 /* --- Layout --- */
@@ -135,7 +159,6 @@ p {
 }
 
 .nav a {
-	text-decoration: none;
 	color: var(--black);
 	font-weight: bold;
 	color: var(--black);
@@ -174,8 +197,18 @@ header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 1000;
+	/* background: var(--white); */
+	/* box-shadow: 0 2px 8px rgba(0,0,0,0.05); */
 }
 
+body {
+	padding-top: 100px; /* headerの高さ分余白を追加。必要に応じて調整 */
+}
 h1 {
 	width: 10vw;
 	min-width: 180px;
@@ -210,7 +243,7 @@ h1 {
 	max-width: 330px;
 	border-width: 4px;
 	text-align: center;
-	margin: 0 auto;
+	margin: 0 auto 180px;
 }
 
 .cta-adj::after {
@@ -270,9 +303,6 @@ h1 {
 
 .nav-wrapper ul li a {
 	font-weight: bold;
-	text-decoration: none; /* 下線を消す */
-	color: inherit;/* 青色を解除（文字色を親と同じにする） */
-	display: block;/* クリックできる範囲を広げるためによくやる設定 */
 }
 
 .nav-wrapper ul li a:hover {
@@ -398,7 +428,7 @@ h4 {
 	margin-bottom: 50px;
 }
 
-.merit, .feature, .usage, .price {
+.merit, .feature, .usage, .price, footer {
 	background-color: var(--white);
 	padding: var(--space-xl) 0;
 	padding-left: 20vw;
@@ -412,7 +442,7 @@ h5 {
 	font-size: 30px;
 }
 
-.merit-contents {
+.merit-wrapper {
 	display: flex;
 	flex-direction: column;
 	gap: 30px;
@@ -424,7 +454,7 @@ h5 {
 	100% { width: 100%; }
 }
 
-.merit-contents p span {
+.merit-wrapper p span {
 	position: relative;
 	display: inline-block;
 	z-index: 1;
@@ -432,7 +462,7 @@ h5 {
 	font-weight: bold;
 }
 
-.merit-contents p span::after {
+.merit-wrapper p span::after {
 	content: "";
 	position: absolute;
 	left: 0;
@@ -448,36 +478,54 @@ h5 {
 	animation-delay: 0.5s; /* ページが開いて0.5秒後にスタート */
 }
 
-.feature-card-wrapper {
-	display: flex;
-	width: 64vw;
-	gap:40px;
+.merit-wrapper, .feature-wrapper, .usage-wrapper, .price-wrapper {
+	width: 60vw;
 }
 
-.feature-card {
+.card-wrapper {
+	display: flex;
+	gap:40px;
+	z-index: 50;
+	justify-content: space-between;
+}
+
+.feature-note {
+	background-color: var(--black);
+	color: var(--primary);
+	text-align: center;
+	padding: 34px 0 20px 0;
+	margin-top: -25px;
+	font-size: 30px;
+	z-index: 10;
+}
+
+.card {
 	position: relative; /* 中身を左上に固定にするため */
 	display: flex;
+	flex: 1;
 	flex-direction: column; /* これで縦並びになる */
+	background-color: var(--white);
 	border: 4px solid var(--black);
-	padding: 70px 45px 45px 45px; 
+	padding: 50px 30px 30px 30px; 
 	text-align: center;
 }
 
-.feature-card h5 {
+.card h5 {
 	font-size: 24px;
-	line-height: 1.4;
+	line-height: 1.3;
 	margin-bottom: 10px;
 }
 
-.feature-card img {
-	margin-bottom: 50px;
+.card img {
+	width: 75%;
+	margin: 0 auto;
+	margin-bottom: 20px;
 }
 
 .card-number {
 	position: absolute; /* 左上に固定にするため */
 	top: 0;
 	left: 0;
-	
 	/* 四角い囲みのデザイン */
 	width: 54px;
 	height: 54px;
@@ -491,3 +539,58 @@ h5 {
 	font-size: 30px;
 	font-weight: bold;
 }
+
+.price-wrapper .card {
+	padding: 10px 10px 20px;
+}
+
+.price-wrapper .card > p:first-of-type {
+	background-color: var(--black);
+	color: var(--white);
+	padding: 10px;
+	margin:  -10px -10px 10px;	/* cardについてるpaddingを消す */
+}
+
+.price-wrapper .card > div:first-of-type {
+	display: flex;
+	margin-top: 20px;
+	padding-top: 10px;
+	border-top: 3px dotted var(--black);
+}
+
+.price-wrapper .card > div:first-of-type > div {
+	flex: 1;
+	padding: 0 5px;
+}
+
+.price-wrapper .card > div > div:first-of-type {
+	border-right: 3px dotted var(--black);
+}
+
+.under-line {
+	position: relative;
+	display: inline-block; /* 文字の幅に合わせる */
+	z-index: 1; /* 重なりの順序を整理 */
+}
+
+.under-line::after {
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: 2px; /* 下からの位置調整 */
+	width: 100%; /* これで文字の下全体に広がる */
+	height: 20px; /* 線の太さ（お好みで） */
+	background: var(--primary);
+	z-index: -1; /* 文字の後ろに配置 */
+}
+
+.status-title {
+	margin-bottom: 20px;
+}
+
+
+footer {
+	background-color: var(--black);
+	color: var(--white);
+}
+
