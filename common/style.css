@@ -359,6 +359,7 @@ h2 span:not(:first-child) {
 	width: 800px;
 	height: auto;
 	margin: 50px 0 0 -400px;
+	opacity: 0.5;
 }
 
 .main-txt > div {
