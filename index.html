@@ -155,36 +155,38 @@
 			</div>
 			<div class="price-wrapper">
 				<div class="card-wrapper">
-					<div class="card">
-						<p>ショートプラン</p>
-						<p>制作費</p>
-						<p class="text-bold">
-							<span class="under-line"><span class="text-accent">10</span>万円〜</span>
-						</p>
-						<div>
-							<div>
-								<p>目安時間</p>
-								<p class="text-bold"><span class="text-accent">30</span>秒程度</p>
-							</div>
-							<div>
-								<p>コマ数</p>
-								<p class="text-bold"><span class="text-accent">5</span>コマまで</p>
-							</div>
-						</div>
+					<div class="card-unit">
 						<div class="campaign-badge">
 							<p class="campaign-text">
 								2026年3月末まで<br>
 								キャンペーン価格<span class="campaign-price">8</span>万円! <small class="caption">※1</small>
 							</p>
 						</div>
+						<div class="card">
+							<p class="price-ttl">ショートプラン</p>
+							<p>制作費</p>
+							<p class="text-bold">
+								<span class="under-line"><span class="text-accent">10</span>万円〜</span>
+							</p>
+							<div class="card-bottom">
+								<div>
+									<p>目安時間</p>
+									<p class="text-bold"><span class="text-accent">30</span>秒程度</p>
+								</div>
+								<div>
+									<p>コマ数</p>
+									<p class="text-bold"><span class="text-accent">5</span>コマまで</p>
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class="card">
-						<p>ベーシックプラン</p>
+						<p class="price-ttl">ベーシックプラン</p>
 						<p>制作費</p>
 						<p class="text-bold">
 							<span class="under-line"><span class="text-accent">20</span>万円〜</span>
 						</p>
-						<div>
+						<div class="card-bottom">
 							<div>
 								<p>目安時間</p>
 								<p class="text-bold"><span class="text-accent">2</span>分程度</p>
@@ -196,7 +198,7 @@
 						</div>
 					</div>
 					<div class="card">
-						<p>カスタムプラン</p>
+						<p class="price-ttl">カスタムプラン</p>
 						<p>その他ご希望の際はご相談ください。</p>
 					</div>
 				</div>
@@ -219,34 +221,7 @@
 			</div>
 		</div>
 	</footer>
-<script>
-    // ブラウザのコンソールに無理やり文字を出して、JSが起きているか確認します
-    console.log("JSチェック：起動しました");
-
-    window.onload = function() {
-        console.log("JSチェック：画面の全要素を読み込みました");
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const badge = entry.target.querySelector('.campaign-badge');
-                    if (badge) {
-                        badge.classList.add('is-visible');
-                        console.log("JSチェック：is-visibleを付与しました！");
-                        observer.unobserve(entry.target);
-                    }
-                }
-            });
-        }, { threshold: 0.2 }); // 20%見えたら反応
-
-        const cards = document.querySelectorAll('.card');
-        console.log("JSチェック：監視対象のカード数 =", cards.length);
-
-        cards.forEach(card => {
-            observer.observe(card);
-        });
-    };
-    </script>
+<script src="js/script.js"></script>
 </body>
 </body>
 </html>

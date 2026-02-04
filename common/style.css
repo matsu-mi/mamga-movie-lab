@@ -483,7 +483,8 @@ h5 {
 }
 
 .card-wrapper {
-	display: flex;
+	display: flex;/* 下端（ベースライン）で揃える設定 */
+    align-items: flex-end;
 	gap:40px;
 	z-index: 50;
 	justify-content: space-between;
@@ -502,6 +503,7 @@ h5 {
 .card {
 	position: relative; /* 中身を左上に固定にするため */
 	display: flex;
+	width: 100%;
 	flex: 1;
 	flex-direction: column; /* これで縦並びになる */
 	background-color: var(--white);
@@ -544,27 +546,31 @@ h5 {
 	padding: 10px 10px 20px;
 }
 
-.price-wrapper .card > p:first-of-type {
+.price-ttl {
 	background-color: var(--black);
 	color: var(--white);
 	padding: 10px;
 	margin:  -10px -10px 10px;	/* cardについてるpaddingを消す */
 }
 
-.price-wrapper .card > div:first-of-type {
+.card-bottom {
 	display: flex;
 	margin-top: 20px;
 	padding-top: 10px;
 	border-top: 3px dotted var(--black);
 }
 
-.price-wrapper .card > div:first-of-type > div {
+.card-bottom > div {
 	flex: 1;
 	padding: 0 5px;
 }
 
-.price-wrapper .card > div > div:first-of-type {
+.card-bottom > div:first-of-type {
 	border-right: 3px dotted var(--black);
+}
+
+.price-wrapper .card:first-of-type {
+	display: flex;
 }
 
 .under-line {
@@ -584,9 +590,85 @@ h5 {
 	z-index: -1; /* 文字の後ろに配置 */
 }
 
+/* --- 1. レイアウト：タイトルの下を広げて、カードを下で揃える --- */
 .status-title {
-	margin-bottom: 20px;
+    margin-bottom: 80px; /* 数値を大きくして、吹き出しが入る隙間を作りました */
 }
+
+.card-wrapper {
+    display: flex;
+    align-items: flex-end; /* カードの底辺を揃えます */
+    justify-content: center;
+    gap: 20px;
+}
+
+/* --- 2. 構造：1つ目のカードと吹き出しをセットにする枠 --- */
+.card-unit {
+    position: relative; /* 吹き出しを浮かせるための基準点 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    flex: 1;
+}
+
+/* --- 3. 吹き出し本体：位置とサイズを整理しました --- */
+.campaign-badge {
+    position: absolute;
+    top: -85px;          /* これでカードの「外（上）」に飛び出させます */
+    left: 50%;
+    transform: translateX(-50%);
+    
+    background-color: #ffff00;
+    border: 3px solid #000;
+    padding: 10px 15px;
+    width: 220px;
+    z-index: 10;
+    text-align: center;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+
+/* 吹き出しのしっぽ（中央配置に整理） */
+.campaign-badge::after {
+    content: "";
+    position: absolute;
+    bottom: -11px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    
+    width: 16px;
+    height: 16px;
+    background-color: #ffff00;
+    border-right: 3px solid #000;
+    border-bottom: 3px solid #000;
+}
+
+/* --- 4. 吹き出し内のテキスト調整 --- */
+.campaign-text {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.3;
+    color: #000;
+}
+
+.campaign-price {
+    font-size: 2.2rem;
+    line-height: 1;
+    margin: 0 2px;
+}
+
+/* --- 5. その他：カードの幅と注釈（caption） --- */
+.card {
+    width: 100%;
+}
+
+.caption {
+    font-size: 10px;
+    vertical-align: super;
+}
+
+
 
 
 footer {
