@@ -372,9 +372,9 @@ h3 {
 	flex: 1;
 }
 .main-video video {
-	width: 800px;
+	width: 60vw;
 	height: auto;
-	margin: 50px 0 0 -400px;
+	margin: 50px 0 0 -100px;
 	opacity: 0.5;
 	z-index: 10;
 }
@@ -394,8 +394,9 @@ h3 {
 
 .main-video > img {
 	position: relative;
-	width: 60%;
+	width: 40%;
 	margin-top: -50px;
+	margin-right: 0;
 	z-index: 1000;
 }
 
