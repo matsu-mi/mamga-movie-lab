@@ -490,7 +490,7 @@ h3 {
 }
 
 /* 中央再生ボタンの親 */
-.usage-play-overlay {
+.play-overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -499,72 +499,54 @@ h3 {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.2); /* 軽く暗くする */
     cursor: pointer;
     z-index: 15;
     transition: opacity 0.3s;
 }
 
-/* --- 中央ボタン（親：白い丸） --- */
-.usage-icon-wrapper {
-    position: relative;
-    width: 88px !important;
-    height: 88px !important;
-    background: rgba(255, 255, 255, 0.9) !important;
-    border-radius: 50% !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    transition: transform 0.2s, background 0.2s;
-    flex-shrink: 0;
+/* 丸いボタン部分 */
+.play-icon {
+	width: 88px;
+	height: 88px;
+	background: rgba(255, 255, 255, 0.8);
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 28px;
+	font-weight: bold;
+}
+.pause-icon {
+	display: inline-block;
+	width: 88px;
+	height: 88px;
+	position: relative;
+	vertical-align: middle;
 }
 
-/* --- 再生アイコン（▶） --- */
-.usage-icon-visual {
-    font-size: 32px !important;
-    color: #000 !important;
-    margin-left: 4px; /* 三角を中央に見せる微調整 */
-    display: block;
+.play-icon .pause-icon::before,
+.play-icon .pause-icon::after {
+	content: '';
+	display: block;
+	position: absolute;
+	top: 0;
+	width: 6px;
+	height: 100%;
+	background: #000;
+	border-radius: 2px;
+}
+.play-icon .pause-icon::before {
+	left: 0;
+}
+.play-icon .pause-icon::after {
+	right: 0;
 }
 
-/* --- 一時停止アイコン（2本線の土台） --- */
-.usage-icon-visual.pause-icon {
-    /* ここが重要！全体の幅を88pxではなく、棒2本分の22pxにギュッと絞ります */
-    width: 22px !important;  
-    height: 30px !important;
-    font-size: 0 !important;
-    margin-left: 0 !important;
-    background: transparent !important;
-    position: relative;
-    display: block !important;
-}
 
-/* --- 2本の棒（::before と ::after） --- */
-.usage-icon-visual.pause-icon::before,
-.usage-icon-visual.pause-icon::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    width: 7px; /* 棒1本の太さ */
-    height: 100%;
-    background: #000 !important;
-    border-radius: 2px;
-}
-
-/* 左の棒：22pxの枠内の左端に配置 */
-.usage-icon-visual.pause-icon::before {
-    left: 0;
-}
-
-/* 右の棒：22pxの枠内の右端に配置 */
-.usage-icon-visual.pause-icon::after {
-    right: 0;
-}
-
-/* ホバー時の挙動 */
-.usage-play-overlay:hover .usage-icon-wrapper {
-    transform: scale(1.1);
-    background: #fff !important;
+.play-overlay:hover .play-icon {
+	transform: scale(1);
+    background: #fff;
 }
 
 /* 再生が始まったらオーバーレイを隠すクラス */
