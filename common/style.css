@@ -739,6 +739,10 @@ h5 {
 	background-color: var(--black);
 }
 
+.usage-video-txt {
+	background-color: var(--white);
+}
+
 /* 動画を包むコンテナ */
 .usage-video .video-container-wrapper {
 	position: relative;
@@ -986,6 +990,25 @@ h5 {
     border-bottom: 3px solid #000;
 }
 
+.campaign-badge p {
+		font-size: 90%;
+	}
+
+@media screen and (max-width: 1440px) {
+	.campaign-badge {
+		top: -70px; /* スマホ表示時に少し位置を調整 */
+		width: 95%;
+		font-size: 80%; /* フォントサイズも少し小さく */
+    	padding: 5px 10px;
+		gap: 3px;
+	}
+	.campaign-badge::after {
+	/* スマホ表示時に少し位置を調整 */
+	}
+}
+
+
+
 /* --- 4. 吹き出し内のテキスト調整 --- */
 .campaign-text {
     margin: 0;
@@ -1217,3 +1240,4 @@ footer > p {
 	0% { width: 0; }
 	100% { width: 100%; }
 }
+
