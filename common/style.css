@@ -2,6 +2,7 @@
 
 /* --- Variables --- */
 :root {
+ 
 	--primary: #ffff00;
 	--black: #000000;
 	--white: #ffffff;
@@ -14,7 +15,7 @@
 	--space-sm: 16px;
 	--space-md: 24px;
 	--space-lg: 40px;
-	--space-xl: 80px;
+	--space-xl: 180px;
 
 	--width-pc: 1140px;
 }
@@ -75,6 +76,11 @@ p {
 
 .text-accent-03 {
 	font-size: 1.3em;
+	line-height: 0.9;
+}
+
+.text-accent-04 {
+	font-size: 1.1em;
 	line-height: 0.9;
 }
 
@@ -171,7 +177,6 @@ p {
 .nav a {
 	color: var(--black);
 	font-weight: bold;
-	color: var(--black);
 }
 
 /* --- Responsive (Breakpoints) --- */
@@ -203,7 +208,7 @@ p {
 header {
 	/* max-width: var(--width-pc); */
 	margin: 0 auto;
-	padding-bottom: 20px;
+	/* padding-bottom: 20px; */
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
@@ -225,6 +230,26 @@ h1 {
 	padding-left: 30px;
 }
 
+h2 {
+	font-size: 100px;
+	font-weight: 900;
+	line-height: 1.2;
+	margin-bottom: 10px;
+}
+
+h2 span:first-child {
+	font-size: 76px;
+}
+
+h2 span:not(:first-child) {
+	font-size: 55px;
+}
+
+h3 {
+	font-size: 60px;
+	line-height: 1.2;
+}
+
 .cta {
 	position: relative;
 	font-weight: bold;
@@ -233,9 +258,10 @@ h1 {
 	border: solid var(--black);
 	border-width: 0 0 4px 4px;
 	box-shadow: 6px 6px var(--black);
-	right: -5px;
+	/* right: -5px; 削除 */
 	text-decoration: none; /* 下線を消す */
 	color: inherit;/* 青色を解除（文字色を親と同じにする） */
+	z-index: 100;
 }
 
 .cta:hover {
@@ -243,14 +269,14 @@ h1 {
 	color: var(--white);
 	/* ボタンを右下に6pxずつ移動させる */
 	transform: translate(6px, 6px);
-	
 	/* 移動した分、影を「なし」にする（または0にする） */
 	box-shadow: 0px 0px 0px 0px #000;
 }
 
 .cta-adj {
 	display: block;
-	max-width: 330px;
+	width: 15vw;
+	/* max-width: 500px; */
 	border-width: 4px;
 	text-align: center;
 	margin: 0 auto;
@@ -262,7 +288,6 @@ h1 {
 	top: 50%;
 	right: 15px;
 	transform: translateY(-50%);
-	
 	/* 三角のデザイン */
 	border-style: solid;
 	border-width: 6px 0 6px 8px;
@@ -272,7 +297,7 @@ h1 {
 .btn {
 	position: relative;
 	display: block;
-	max-width: 330px;
+	max-width: 400px;
 	border: solid var(--black);
 	border-width: 4px;
 	text-align: center;
@@ -299,6 +324,12 @@ h1 {
 	display: flex;
 }
 
+.nav-wrapper nav {
+	/* display: flex; */
+	margin-right: -10px;
+	z-index: 50;
+}
+
 .nav-wrapper ul {
 	display: flex;
 	list-style: none;/* ポッチ（黒丸）を消す */
@@ -322,22 +353,7 @@ h1 {
 
 .fv {
 	background-color: var(--white);
-	padding: var(--space-xl) 0;
-}
-
-h2 {
-	font-size: 100px;
-	font-weight: 900;
-	line-height: 1.2;
-	margin-bottom: 10px;
-}
-
-h2 span:first-child {
-	font-size: 76px;
-}
-
-h2 span:not(:first-child) {
-	font-size: 55px;
+	padding: 0 0 var(--space-xl) 0;
 }
 
 .fv > div {
@@ -360,6 +376,7 @@ h2 span:not(:first-child) {
 	height: auto;
 	margin: 50px 0 0 -400px;
 	opacity: 0.5;
+	z-index: 10;
 }
 
 .main-txt > div {
@@ -370,10 +387,18 @@ h2 span:not(:first-child) {
 	font-size: 26px;
 }
 
-h3 {
-	font-size: 60px;
-	line-height: 1.2;
+.main-txt > img{
+	width: 60%;
+	margin-top: 20px;
 }
+
+.main-video > img {
+	position: relative;
+	width: 60%;
+	margin-top: -50px;
+	z-index: 1000;
+}
+
 
 .accent {
 	position: relative;
@@ -408,7 +433,14 @@ h3 {
 /* イントロ部分 */
 #intro {
 	background-color: var(--primary);
-	padding: var(--space-xl) 0;
+	background-image: url('../images/intro-bg.png');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	padding: 0 0 100px;
+	margin-top: -250px;
+	border: solid var(--black);
+	border-width: 4px 0;
 }
 
 .triangles {
@@ -433,7 +465,7 @@ h3 {
     align-items: center;   /* 天地中央（垂直方向）に揃える */
     justify-content: center; /* 左右中央に寄せたい場合（任意） */
     gap: 30px;            /* pとdivの間の隙間を調整（任意） */
-	margin-bottom: 100px;
+	margin: 200px 0 100px;
 }
 
 .intro-wrapper div:first-of-type {
@@ -477,20 +509,40 @@ h3 {
 .play-icon {
 	width: 88px;
 	height: 88px;
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	background: rgba(255, 255, 255, 0.8);
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	font-size: 28px;
 	font-weight: bold;
 }
-
-/* 停止ボタンの線を太くする（汎用） */
-.play-icon .pause-icon {
-	font-weight: bold;
-	text-shadow: 0 0 2px #333;
+.pause-icon {
+	display: inline-block;
+	width: 20px;
+	height: 28px;
+	position: relative;
+	vertical-align: middle;
 }
+
+.play-icon .pause-icon::before,
+.play-icon .pause-icon::after {
+	content: '';
+	display: block;
+	position: absolute;
+	top: 0;
+	width: 6px;
+	height: 100%;
+	background: #000;
+	border-radius: 2px;
+}
+.play-icon .pause-icon::before {
+	left: 0;
+}
+.play-icon .pause-icon::after {
+	right: 0;
+}
+
 
 .play-overlay:hover .play-icon {
 	transform: scale(1);
@@ -558,11 +610,18 @@ h4 {
 	margin-bottom: 50px;
 }
 
-.merit, .feature, .usage, .price, .faq, footer {
+#merit, #feature, #usage, #price, #faq {
+	display: flex;
+	flex-direction: column;
+	gap: 80px;
+}
+
+.merit, .feature, .usage, .price, .faq {
 	background-color: var(--white);
-	padding: var(--space-xl) 0;
+	padding: var(--space-xl) 0 0;
 	padding-left: 20vw;
 }
+
 
 .merit > div {
 	width: 100%;
@@ -576,12 +635,6 @@ h5 {
 	display: flex;
 	flex-direction: column;
 	gap: 30px;
-}
-
-/* アニメーションの動きそのものを定義（0から100%へ） */
-@keyframes drawLine {
-	0% { width: 0; }
-	100% { width: 100%; }
 }
 
 .merit-wrapper p span {
@@ -601,17 +654,14 @@ h5 {
 	background: var(--primary);
 	z-index: -1;
 	transform-origin: left;
-
-	/* --- ここから修正・追加 --- */
-	width: 0; /* 最初は長さを0にしておく */
-	animation: drawLine 0.8s ease-out forwards; /* drawLineを0.8秒かけて実行 */
-	animation-delay: 0.5s; /* ページが開いて0.5秒後にスタート */
+	width: 0;
+	animation: drawLineMerit 0.8s ease-out forwards;
+	animation-delay: 0.5s;
 }
 
 .merit-wrapper, .feature-wrapper, .usage-wrapper, .price-wrapper {
 	width: 60vw;
 }
-
 
 .feature-note {
 	background-color: var(--black);
@@ -664,6 +714,56 @@ h5 {
 	font-size: 30px;
 	font-weight: bold;
 }
+
+.usage-video {
+	margin-top: 40px;
+	width: 60vw;
+}
+
+.usage-video p:first-of-type {
+	margin-bottom: 10px;
+}
+
+.video-wrapper video {
+	width: 100%;
+}
+
+.video-wrapper {
+	display: flex;
+	gap: 10px;
+}
+
+.video-wrapper div {
+	border: 4px solid var(--black);
+}
+
+.video-wrapper p:nth-child(2), p:nth-child(3) {
+	padding: 10px;
+	text-align: center;
+	margin-bottom: 0;
+}
+
+.video-wrapper p:nth-child(2) {
+	background-color: var(--black);
+	color: var(--white);
+	line-height: 1.5;
+}
+
+/* usage-video内のvideo下の隙間をなくす */
+.video-wrapper > div > video + p {
+	margin-top: 0;
+}
+
+/* usage-video内のvideo下の隙間をなくす（下部追加） */
+.usage-video video {
+	display: block;
+	margin-bottom: 0;
+}
+
+.usage-video video + p {
+	margin-top: 0;
+}
+
 
 .price-wrapper .card {
 	padding: 10px 10px 20px;
@@ -738,15 +838,20 @@ h5 {
 /* --- 3. 吹き出し本体：位置とサイズを整理しました --- */
 .campaign-badge {
     position: absolute;
-    top: -90px;          /* これでカードの「外（上）」に飛び出させます */
+    top: -85px;          /* これでカードの「外（上）」に飛び出させます */
     left: 50%;
     transform: translateX(-50%);
     background-color: var(--primary);
     border: 3px solid #000;
     padding: 10px 15px;
-    width: 220px;
+    width: 90%;
     z-index: 10;
-    text-align: center;
+	text-align: center;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
     font-weight: bold;
     box-sizing: border-box;
 }
@@ -769,17 +874,16 @@ h5 {
 /* --- 4. 吹き出し内のテキスト調整 --- */
 .campaign-text {
     margin: 0;
-    font-size: 14px;
+    font-size: 1.1rem;
     line-height: 1.3;
     color: #000;
 }
 
 .campaign-price {
-    font-size: 2.2rem;
+    font-size: 4rem;
     line-height: 1;
     margin: 0 2px;
 }
-
 
 .price-wrapper:nth-of-type(4) .col-2 {
 	border: none;
@@ -799,18 +903,28 @@ h5 {
     flex: 0 0 calc((100% - 20px * 2) / 3);
 }
 
+/* 2番目の.status-title専用マージン */
+.status-title.second {
+	margin-top: 50px;
+}
+
 .btn-wrapper {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 50px;
+	width: 100%;
+	min-width: 300px;
+	margin: 0 auto;
+	max-width: fit-content;
 }
 
 .btn-wrapper a {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 240px; 
+    width: 15vw; 
+	min-width: 300px;
     height: 60px;
     text-decoration: none;
     box-sizing: border-box;
@@ -872,12 +986,119 @@ h5 {
 	width: 20vw;
 }
 
+/* FAQセクション下部 お問い合わせボタン中央寄せ・上マージン */
+#faq .cta.cta-adj {
+	display: block;
+	margin: 20px auto 150px auto;
+}
 
 
-
+/* フッター */
 
 footer {
 	background-color: var(--black);
 	color: var(--white);
+	padding: 100px 20vw 50px;
 }
 
+.footer-wrapper {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 100px;
+}
+
+.footer-wrapper ul li {
+    margin-bottom: 18px; /* お好みで数値調整 */
+}
+
+footer > p {
+	text-align: center;
+}
+
+.company-info {
+	width: 22vw;
+	margin-bottom: 30px;
+}
+
+.footer-wrapper .cta-adj {
+	color: var(--black);
+	margin-top: 20px;
+	margin-left: 0;
+}
+
+.footer-wrapper .cta-adj:hover {
+	background-color: var(--black);
+	border: 4px solid var(--white);
+	color: var(--white);
+	/* ボタンを右下に移動させる指示を0で打ち消す */
+	transform: translate(0px, 0px);
+	/* 移動した分、影を「なし」にする（または0にする） */
+	box-shadow: 0px 0px 0px 0px #000;
+}
+
+.footer-wrapper .cta-adj:hover::after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	right: 15px;
+	transform: translateY(-50%);
+	/* 三角のデザイン */
+	border-style: solid;
+	border-width: 6px 0 6px 8px;
+	border-color: transparent transparent transparent var(--white);
+}
+
+
+/* 弾むアニメーション */
+.campaign-badge {
+	transition: transform 0.4s cubic-bezier(.68,-0.55,.27,1.55), opacity 0.3s;
+	opacity: 0;
+	transform: translateX(-50%) scale(0.7);
+}
+
+.campaign-badge.is-visible {
+	opacity: 1;
+	animation: bounceInSoft2 1.3s ease-out;
+	transform: translateX(-50%) scale(1);
+}
+
+@keyframes bounceInSoft2 {
+	0% {
+		opacity: 0;
+		transform: translateX(-50%) scale(0.7);
+	}
+	30% {
+		opacity: 1;
+		transform: translateX(-50%) scale(1.15);
+	}
+	50% {
+		transform: translateX(-50%) scale(0.92);
+	}
+	70% {
+		transform: translateX(-50%) scale(1.08);
+	}
+	85% {
+		transform: translateX(-50%) scale(0.98);
+	}
+	100% {
+		opacity: 1;
+		transform: translateX(-50%) scale(1);
+	}
+}
+
+
+/* --- アンダーライン（メリット）アニメーション発火用 --- */
+.merit-wrapper p span::after {
+	/* ...既存プロパティ... */
+	animation: none !important;
+}
+
+.merit-wrapper p span.is-visible::after {
+	animation: drawLineMerit 0.8s ease-out forwards !important;
+	animation-delay: 0.5s;
+}
+
+@keyframes drawLineMerit {
+	0% { width: 0; }
+	100% { width: 100%; }
+}

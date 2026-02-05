@@ -1,3 +1,24 @@
+// --- merit-wrapperのアンダーラインアニメーション発火 ---
+document.addEventListener('DOMContentLoaded', () => {
+    const meritObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // merit-wrapper内のspanすべてにクラス付与
+                entry.target.querySelectorAll('span').forEach(span => {
+                    span.classList.add('is-visible');
+                });
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.3, // 30%見えたら発火（より確実に見えてから）
+        rootMargin: '0px 0px -20% 0px' // 下方向に余裕を持たせて発火を遅らせる
+    });
+
+    document.querySelectorAll('.merit-wrapper').forEach(wrapper => {
+        meritObserver.observe(wrapper);
+    });
+});
 document.addEventListener('DOMContentLoaded', () => {
     // 1. 監視の設定（IntersectionObserver）
     const observer = new IntersectionObserver((entries) => {
@@ -38,6 +59,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     // ゆっくりスクロール関数
+        // ロゴクリックでページトップに戻る
+        const logoLink = document.querySelector('header h1 a');
+        if (logoLink) {
+            logoLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
     function slowScrollTo(element, duration = 1000) {
         const start = window.pageYOffset;
         const end = element.getBoundingClientRect().top + window.pageYOffset;
@@ -85,13 +114,11 @@ document.addEventListener('DOMContentLoaded', () => {
     playOverlay.addEventListener('click', () => {
         if (video.paused) {
             video.play();
-            video.muted = false; // 再生開始時は音を出す
-            centerIcon.innerText = 'II'; // 一時停止アイコン（フォントや記号でお好みで）
+            centerIcon.innerHTML = '<span class="pause-icon"></span>';
             playOverlay.classList.add('playing');
-            updateMuteBtn(false); 
         } else {
             video.pause();
-            centerIcon.innerText = '▶'; // 再生アイコン
+            centerIcon.innerText = '▶';
             playOverlay.classList.remove('playing');
         }
     });
