@@ -159,7 +159,18 @@
 				<p class="text-accent-03 text-bold">サンプル</p>
 				<div class="video-wrapper">
 					<div>
-						<video src="images/sample-video-01.mp4" loop autoplay muted playsinline poster="images/sample-video-01.png"></video>
+						<div class="video-container-wrapper">
+						<div class="video-container">
+							<video id="lpVideo" src="images/sample-video-01.mp4" loop muted playsinline poster="images/sample-video-01.png"></video>
+							<div id="playOverlay" class="play-overlay">
+								<div id="centerIcon" class="play-icon">▶</div>
+							</div>
+
+							<button id="muteBtn" class="mute-button">
+								<span id="muteIcon">🔇</span> <span id="btnText">音を出す</span>
+							</button>
+						</div>
+					</div>
 						<p>半田中央印刷</p>
 						<p class="text-bold">会社紹介ムービー</p>
 					</div>
