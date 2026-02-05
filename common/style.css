@@ -714,6 +714,7 @@ h5 {
 	font-size: 30px;
 	font-weight: bold;
 }
+
 .usage-video {
 	margin-top: 40px;
 	width: 100%;
@@ -737,10 +738,11 @@ h5 {
 	flex-direction: column;
 }
 
-/* 動画を包むコンテナ（比率を維持） */
+/* 動画を包むコンテナ（これを基準にボタンを配置） */
 .usage-video .video-container-wrapper {
 	position: relative;
 	width: 100%;
+	line-height: 0; /* 下の隙間を消す */
 }
 
 .usage-video .usage-target-container {
@@ -748,7 +750,6 @@ h5 {
 	width: 100%;
 	aspect-ratio: 16 / 9; /* 動画の比率に合わせて調整 */
 	margin: 0 auto;
-	line-height: 0;
 	overflow: hidden;
 	background-color: #000;
 }
@@ -787,14 +788,14 @@ h5 {
 }
 
 .usage-icon-wrapper {
-	width: 60px; /* 少しサイズを調整（3列表示用） */
-	height: 60px;
+	width: 80px; /* 60pxから80pxにアップ */
+	height: 80px; /* 60pxから80pxにアップ */
 	background: rgba(255, 255, 255, 0.8);
 	border-radius: 50%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	font-size: 20px;
+	font-size: 32px; /* アイコン自体も少し大きく */
 	font-weight: bold;
 	transition: transform 0.2s;
 }
@@ -807,8 +808,8 @@ h5 {
 /* 一時停止アイコン */
 .pause-icon {
 	display: inline-block;
-	width: 14px;
-	height: 20px;
+	width: 18px; /* 少し太く */
+	height: 24px; /* 少し高く */
 	position: relative;
 }
 
@@ -818,10 +819,10 @@ h5 {
 	display: block;
 	position: absolute;
 	top: 0;
-	width: 4px;
+	width: 6px; /* 棒の太さを調整 */
 	height: 100%;
 	background: #000;
-	border-radius: 1px;
+	border-radius: 2px;
 }
 
 .pause-icon::before {
@@ -833,7 +834,7 @@ h5 {
 	margin-right: -14px;
 }
 
-/* ミュートボタン */
+/* ミュートボタン：コンテナの左下10pxに固定 */
 .usage-mute-btn {
 	position: absolute;
 	bottom: 10px;
