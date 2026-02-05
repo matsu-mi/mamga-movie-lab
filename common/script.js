@@ -1,5 +1,6 @@
-// --- merit-wrapperのアンダーラインアニメーション発火 ---
 document.addEventListener('DOMContentLoaded', () => {
+
+	// --- merit-wrapperのアンダーラインアニメーション発火 ---
 	const meritObserver = new IntersectionObserver((entries, observer) => {
 		entries.forEach(entry => {
 			if (entry.isIntersecting) {
@@ -17,10 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.querySelectorAll('.merit-wrapper').forEach(wrapper => {
 		meritObserver.observe(wrapper);
 	});
-});
 
-document.addEventListener('DOMContentLoaded', () => {
-	// 1. 監視の設定（IntersectionObserver）
+	// --- 1. キャンペーンバッジ等の監視設定（IntersectionObserver） ---
 	const observer = new IntersectionObserver((entries) => {
 		entries.forEach(entry => {
 			if (entry.isIntersecting) {
@@ -35,7 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		threshold: 0.1 
 	});
 
-	// 2. 監視の開始
 	const cardUnits = document.querySelectorAll('.card-unit');
 	if (cardUnits.length > 0) {
 		cardUnits.forEach(unit => {
@@ -47,16 +45,11 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 	}
 
-	// ロゴクリックでページトップに戻る
-	const logoLink = document.querySelector('header h1 a');
-	if (logoLink) {
-		logoLink.addEventListener('click', function(e) {
-			e.preventDefault();
-			window.scrollTo({ top: 0, behavior: 'smooth' });
-		});
+	// --- 2. スムーススクロール関連 ---
+	function easeInOutQuad(t) {
+		return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
 	}
 
-	// ゆっくりスクロール関数
 	function slowScrollTo(element, duration = 1000) {
 		const start = window.pageYOffset;
 		const end = element.getBoundingClientRect().top + window.pageYOffset;
@@ -72,11 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
 				requestAnimationFrame(animation);
 			}
 		}
-
-		function easeInOutQuad(t) {
-			return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-		}
-
 		requestAnimationFrame(animation);
 	}
 
@@ -84,6 +72,11 @@ document.addEventListener('DOMContentLoaded', () => {
 	document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 		anchor.addEventListener('click', function(e) {
 			const targetId = this.getAttribute('href').slice(1);
+			if (targetId === "") {
+				e.preventDefault();
+				window.scrollTo({ top: 0, behavior: 'smooth' });
+				return;
+			}
 			const target = document.getElementById(targetId);
 			if (target) {
 				e.preventDefault();
@@ -92,69 +85,59 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 	});
 
-	// --- ビデオ操作の制御（intro用：ID使用 / usage用：Class使用） ---
-	
-	// A. introセクション用 (既存のIDベース)
-	const introVideo = document.getElementById('lpVideo');
-	const introOverlay = document.getElementById('playOverlay');
-	const introCenterIcon = document.getElementById('centerIcon');
-	const introMuteBtn = document.getElementById('muteBtn');
+	// --- 3. ビデオ操作の制御（汎用クラスベース） ---
+	// ページ内のすべてのビデオコンテナを取得してループ処理
+	const allVideoWrappers = document.querySelectorAll('.video-container-wrapper');
 
-	if (introVideo && introOverlay) {
-		introOverlay.addEventListener('click', () => {
-			if (introVideo.paused) {
-				introVideo.play();
-				introCenterIcon.innerHTML = '<span class="pause-icon"></span>';
-				introOverlay.classList.add('playing');
+	allVideoWrappers.forEach(container => {
+		const video = container.querySelector('video, .usage-video-element, #lpVideo');
+		const overlay = container.querySelector('.usage-play-overlay, #playOverlay');
+		const iconVisual = container.querySelector('.usage-icon-visual, .usage-icon-wrapper, #centerIcon');
+		const muteBtn = container.querySelector('.usage-mute-btn, #muteBtn');
+		const muteIcon = container.querySelector('.usage-mute-icon, #muteIcon');
+		const btnText = container.querySelector('.usage-btn-text, #btnText');
+
+		if (!video || !overlay) return;
+
+		// 再生・一時停止の切り替え関数
+		const togglePlay = () => {
+			if (video.paused) {
+				video.play();
+				overlay.classList.add('playing');
+				if (iconVisual) {
+					iconVisual.classList.add('pause-icon');
+					iconVisual.textContent = ''; 
+				}
 			} else {
-				introVideo.pause();
-				introCenterIcon.innerText = '▶';
-				introOverlay.classList.remove('playing');
+				video.pause();
+				overlay.classList.remove('playing');
+				if (iconVisual) {
+					iconVisual.classList.remove('pause-icon');
+					iconVisual.textContent = '▶';
+				}
 			}
-		});
+		};
 
-		if (introMuteBtn) {
-			introMuteBtn.addEventListener('click', (e) => {
+		// オーバーレイクリックイベント
+		overlay.addEventListener('click', togglePlay);
+
+		// ミュートボタンの制御
+		if (muteBtn) {
+			muteBtn.addEventListener('click', (e) => {
 				e.stopPropagation();
-				introVideo.muted = !introVideo.muted;
-				const icon = document.getElementById('muteIcon');
-				const txt = document.getElementById('btnText');
-				if (icon) icon.innerText = introVideo.muted ? '🔇' : '🔊';
-				if (txt) txt.innerText = introVideo.muted ? '音を出す' : '音を消す';
+				video.muted = !video.muted;
+				if (muteIcon) muteIcon.textContent = video.muted ? '🔇' : '🔊';
+				if (btnText) btnText.textContent = video.muted ? '音を出す' : '音を消す';
 			});
 		}
-	}
 
-	// B. usageセクション用 (新設のクラスベース)
-	const usageContainer = document.querySelector('.usage-target-container');
-
-	if (usageContainer) {
-		const uVideo = usageContainer.querySelector('.usage-video-element');
-		const uOverlay = usageContainer.querySelector('.usage-play-overlay');
-		const uIconVisual = usageContainer.querySelector('.usage-icon-visual');
-		const uMuteBtn = usageContainer.querySelector('.usage-mute-btn');
-		const uMuteIcon = usageContainer.querySelector('.usage-mute-icon');
-		const uBtnText = usageContainer.querySelector('.usage-btn-text');
-
-		uOverlay.addEventListener('click', () => {
-			if (uVideo.paused) {
-				uVideo.play();
-				uOverlay.classList.add('playing');
-				uIconVisual.classList.add('pause-icon');
-				uIconVisual.textContent = ''; 
-			} else {
-				uVideo.pause();
-				uOverlay.classList.remove('playing');
-				uIconVisual.classList.remove('pause-icon');
-				uIconVisual.textContent = '▶';
+		// 動画終了時にアイコンを戻す
+		video.addEventListener('ended', () => {
+			overlay.classList.remove('playing');
+			if (iconVisual) {
+				iconVisual.classList.remove('pause-icon');
+				iconVisual.textContent = '▶';
 			}
 		});
-
-		uMuteBtn.addEventListener('click', (e) => {
-			e.stopPropagation();
-			uVideo.muted = !uVideo.muted;
-			if (uMuteIcon) uMuteIcon.textContent = uVideo.muted ? '🔇' : '🔊';
-			if (uBtnText) uBtnText.textContent = uVideo.muted ? '音を出す' : '音を消す';
-		});
-	}
+	});
 });
