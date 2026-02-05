@@ -895,6 +895,11 @@ h5 {
 	margin:  -10px -10px 10px;	/* cardについてるpaddingを消す */
 }
 
+.sample-price {
+	width: 80%;
+	margin-top: 20px;
+}
+
 .col-2 {
 	display: flex;
 	margin-top: 20px;
