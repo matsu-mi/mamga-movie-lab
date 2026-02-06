@@ -85,17 +85,14 @@ document.addEventListener('DOMContentLoaded', () => {
 		});
 	});
 
-	// --- 3. ビデオ操作の制御（汎用クラスベース） ---
-	// ページ内のすべてのビデオコンテナを取得してループ処理
-	const allVideoWrappers = document.querySelectorAll('.video-container-wrapper');
+	// --- 3. ビデオ操作の制御（画像切り替え・複数対応版） ---
+	const allVideoWrappers = document.querySelectorAll('.video-container');
 
 	allVideoWrappers.forEach(container => {
-		const video = container.querySelector('video, .usage-video-element, #lpVideo');
-		const overlay = container.querySelector('.usage-play-overlay, #playOverlay');
-		const iconVisual = container.querySelector('.usage-icon-visual, .usage-icon-wrapper, #centerIcon');
-		const muteBtn = container.querySelector('.usage-mute-btn, #muteBtn');
-		const muteIcon = container.querySelector('.usage-mute-icon, #muteIcon');
-		const btnText = container.querySelector('.usage-btn-text, #btnText');
+		const video = container.querySelector('video');
+		const overlay = container.querySelector('.play-overlay');
+		const muteBtn = container.querySelector('.mute-button');
+		const btnText = container.querySelector('.btn-text, #btnText');
 
 		if (!video || !overlay) return;
 
@@ -104,17 +101,9 @@ document.addEventListener('DOMContentLoaded', () => {
 			if (video.paused) {
 				video.play();
 				overlay.classList.add('playing');
-				if (iconVisual) {
-					iconVisual.classList.add('pause-icon');
-					iconVisual.textContent = ''; 
-				}
 			} else {
 				video.pause();
 				overlay.classList.remove('playing');
-				if (iconVisual) {
-					iconVisual.classList.remove('pause-icon');
-					iconVisual.textContent = '▶';
-				}
 			}
 		};
 
@@ -126,18 +115,21 @@ document.addEventListener('DOMContentLoaded', () => {
 			muteBtn.addEventListener('click', (e) => {
 				e.stopPropagation();
 				video.muted = !video.muted;
-				if (muteIcon) muteIcon.textContent = video.muted ? '🔇' : '🔊';
-				if (btnText) btnText.textContent = video.muted ? '音を出す' : '音を消す';
+				
+				// CSSでアイコンを変えるための状態クラス付与
+				container.classList.toggle('is-muted', video.muted);
+				container.classList.toggle('is-unmuted', !video.muted);
+				
+				if (btnText) {
+					btnText.textContent = video.muted ? '音を出す' : '音を消す';
+				}
 			});
 		}
 
 		// 動画終了時にアイコンを戻す
 		video.addEventListener('ended', () => {
 			overlay.classList.remove('playing');
-			if (iconVisual) {
-				iconVisual.classList.remove('pause-icon');
-				iconVisual.textContent = '▶';
-			}
 		});
 	});
-});
+
+}); // ここで正しくDOMContentLoadedを閉じています

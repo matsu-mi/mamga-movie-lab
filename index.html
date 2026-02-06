@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>マンガムービー・ラボ</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="common/style.css">
 </head>
 <body class="u-text-main">
@@ -52,15 +53,14 @@
 				<span>▶</span><span>▶</span><span>▶</span>
 			</p>
 			<div class="video-container-wrapper">
-				<div class="video-container">
-					<video id="lpVideo" src="images/movie-hcp.mp4" loop muted playsinline poster="images/movie-thumbnail.png">
+				<div class="video-container is-intro"> <video id="lpVideo" src="images/movie-hcp.mp4" loop muted playsinline poster="images/movie-thumbnail.png">
 					</video>
-					<div id="playOverlay" class="play-overlay">
-						<div id="centerIcon" class="play-icon">▶</div>
-					</div>
+					
+					<div class="play-overlay">
+						<div class="play-icon"></div> </div>
 
-					<button id="muteBtn" class="mute-button">
-						<span id="muteIcon">🔇</span> <span id="btnText">音を出す</span>
+					<button class="mute-button">
+						<span class="mute-icon"></span> <span class="btn-text">音を出す</span>
 					</button>
 				</div>
 				<img src="images/intro-bomb.png" class="intro-bomb">
